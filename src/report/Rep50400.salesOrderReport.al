@@ -25,8 +25,8 @@ report 50502 salesOrderReport
                 myInt: Integer;
             begin
                 Message('On after get record');
-                if "Sales Header"."Sell-to Customer No." = '10000' then
-                    CurrReport.Skip();
+                // if "Sales Header"."Sell-to Customer No." = '10000' then
+                //     CurrReport.Skip();
             end;
 
             trigger OnPreDataItem()
@@ -34,8 +34,12 @@ report 50502 salesOrderReport
                 myInt: Integer;
             begin
                 Message('On Pre data item');
-                // "Sales Header".SetFilter("Document Type", '%1', "Sales Header"."Document Type"::Order);
-                "Sales Header".SetRange("No.", salesOrder);
+                /*
+                Below is the modification of Task2
+                */
+                if salesOrder <> '' then begin
+                    "Sales Header".SetRange("No.", salesOrder);
+                end;
             end;
         }
     }
